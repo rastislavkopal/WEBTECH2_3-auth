@@ -1,3 +1,10 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+session_start();
+?>
+
 <!doctype  html>
 <html lang="sk">
 <head>
@@ -14,9 +21,12 @@
 
 <?php include('./views/header.php') ?>
 
+
+
 <?php
-session_start();
-if (isset($_SESSION["meno"])){
+
+if (isset($_SESSION["email"])){
+    echo '<a class="btn btn-primary btn-small navbar-btn mx-3 py-2" href="http://wt78.fei.stuba.sk/zadanie3/api/logout">Odhlásiť </a>';
     return "hello";
 } else {
     include('./views/login.php');

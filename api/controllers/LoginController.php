@@ -1,8 +1,11 @@
 <?php
 
+require_once '/home/xkopalr1/public_html/zadanie3/api/models/UserModel.php';
+
+
 function handleOauth()
 {
-    require_once 'vendor/autoload.php';
+    require_once '/home/xkopalr1/public_html/zadanie3/api/vendor/autoload.php';
     $string = file_get_contents("/home/xkopalr1/public_html/credentials.json");
     $json_a = null;
     if ($string === false || ($json_a = json_decode($string, true)) == null) {
@@ -36,7 +39,7 @@ function handleOauth()
         // now you can use this profile info to create account in your website and make user logged in.
         echo var_dump($token) . "   .... " . $email . " ..... " .$name;
     } else {
-        echo $client->createAuthUrl();
+        header('Location: '.$client->createAuthUrl());
     }
 }
 
@@ -45,7 +48,18 @@ function handleLdap()
     return "not yet";
 }
 
-function handleBasicLogin()
+// gets $data -> email and pass's hash
+function handleBasicLogin($data)
 {
-    return "not yet";
+    if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL) || empty($data['password'])){
+        return "Chybny vstup";
+    }
+
+    if ((new UserModel())->verifyUserPass($data['email'], md5($data['password'])) ){ // true => hash matches
+        session_start();
+        $_SESSION['email']= $data['email'];
+        return "Uspesne prihlasenie uzivatela: ". $_SESSION['email'];
+    } else{
+        return "Nepodarilo sa prihlasit";
+    }
 }

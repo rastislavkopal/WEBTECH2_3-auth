@@ -1,7 +1,8 @@
 <?php
 
 use Pecee\SimpleRouter\SimpleRouter;
-require_once './controllers/LoginController.php';
+include_once  '/home/xkopalr1/public_html/zadanie3/api/controllers/LoginController.php';
+include_once '/home/xkopalr1/public_html/zadanie3/api/controllers/RegisterController.php';
 
 
 SimpleRouter::get('/zadanie3/api/', function() {
@@ -14,17 +15,35 @@ SimpleRouter::get('/zadanie3/api/user', function() {
 });
 
 
-SimpleRouter::get('/zadanie3/api/oauth', handleOauth());
+SimpleRouter::post('/zadanie3/api/register', function() {
+    $data = input()->all([
+        'email',
+        'password',
+        'password-again'
+    ]);
+    return handlerBasicRegistration($data);
+});
+
+SimpleRouter::get('/zadanie3/api/oauth', function(){
+    return "here i am";
+});
+
+SimpleRouter::get('/zadanie3/api/logoauth', function(){
+    return "not yet oauth";
+//    return handleOauth();
+} );
 
 
-SimpleRouter::get('/zadanie3/api/ldap', handleLdap() );
+SimpleRouter::get('/zadanie3/api/ldap', function(){
+
+    return "not yet ldap";
+//    return handleLdap();
+} );
 
 
-SimpleRouter::get('/zadanie3/api/login', function() {
-    session_start();
-    $_SESSION['meno']="xxx";
-    return "meno je: ".$_SESSION['meno']."<br />";
-    handleBasicLogin();
+SimpleRouter::post('/zadanie3/api/login', function() {
+    $data = input()->all([ 'email', 'password']);
+    return handleBasicLogin($data);
 });
 
 

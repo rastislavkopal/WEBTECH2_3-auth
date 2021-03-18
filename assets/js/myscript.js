@@ -1,12 +1,14 @@
 $(document).ready( function () {
-    setOauthLoginButton();
+    // setOauthLoginButton();
 } );
 
-function setOauthLoginButton(){
-    $.get( "https://wt78.fei.stuba.sk/zadanie3/api/oauth", function( data ) {
-        $( "#google-oauth" ).attr("href", data)
-    });
-}
+// function setOauthLoginButton(){
+//     $.get( "https://wt78.fei.stuba.sk/zadanie3/api/oauth", function( data ) {
+//         $( "#google-oauth" ).attr("href", data)
+//     }).always(function() {
+//         console.log("done");
+//     });
+// }
 
 function displayMessage(response)
 {
@@ -23,7 +25,6 @@ function goLogin()
 {
     $("#login-form").css("display", "none");
     $("#register-form").css("display", "block");
-    setOauthLoginButton();
 }
 
 
@@ -33,31 +34,18 @@ function goRegister()
     $("#register-form").css("display", "none");
 }
 
+function loginUser(){
+    let data = $('#login-form').serializeArray();
 
-
-function createPerson()
-{
-    let data = $('#formAddPerson').serializeArray();
-
-    for (let i = 0; i < 5; i++)
-        if (!data[i].value.length) {
-            displayMessage("Hodnota '" + data[i]["name"] + "' nesmie byt prazdna");
-            return;
-        }
+    console.log(data);
 
     var formData = {
-        "name": data[0]["value"],
-        "surname": data[1]["value"],
-        "birth_day": data[2]["value"],
-        "birth_place": data[3]["value"],
-        "birth_country": data[4]["value"],
-        "death_day": data[5]["value"],
-        "death_place": data[6]["value"],
-        "death_country": data[7]["value"]
+        "email": data[0]["value"],
+        "password": data[1]["value"]
     };
 
     $.ajax({
-        url: 'http://wt78.fei.stuba.sk/zadanie2/controllers/CreatePerson.php',
+        url: 'https://wt78.fei.stuba.sk/zadanie3/api/login',
         type: 'POST',
         data: formData,
         dataType: 'text',
@@ -65,28 +53,34 @@ function createPerson()
     });
 }
 
-function createPlacement()
+function registerUser()
 {
-    let data = $('#formAddPlacement').serializeArray();
-
-    for (let i = 0; i < data.length; i++)
-        if (!data[i].value.length) {
-            displayMessage("Hodnota '" + data[i]["name"] + "' nesmie byt prazdna");
-            return;
-        }
+    let data = $('#register-form').serializeArray();
 
     var formData = {
-        "person_id": data[0]["value"],
-        "oh_id": data[1]["value"],
-        "placing": data[2]["value"],
-        "discipline": data[3]["value"]
+        "email": data[0]["value"],
+        "password": data[1]["value"],
+        "password-again": data[2]["value"],
     };
 
     $.ajax({
-        url: 'http://wt78.fei.stuba.sk/zadanie2/controllers/AddPlacement.php',
+        url: 'https://wt78.fei.stuba.sk/zadanie3/api/register',
         type: 'POST',
         data: formData,
         dataType: 'text',
-       success: displayMessage,
+        success: function (){
+            location.reload();
+        },
+    });
+}
+
+
+function logoutUser()
+{
+    $.ajax({
+        url: "http://wt78.fei.stuba.sk/zadanie3/api/logout",
+        type: 'GET',
+        dataType: 'json',
+        success: displayMessage
     });
 }

@@ -24,7 +24,8 @@ html,body {
     top: 20%;
     left: 45%;
     margin-left: -150px;
-    width: 400px;
+    width: 500px;
+    word-wrap: break-word;
     z-index: 9999;
     background-color: tomato;
     color: white;
@@ -40,3 +41,21 @@ html,body {
     margin-top: 20px;
 }
 
+#logout-div{
+    width: 200px;
+    height: 100px;
+    background-color: #BDBDBD;
+    position: absolute;
+    align-content: center;
+    right: 0;
+    /*top:0;*/
+    z-index: 999;
+}
+
+#logout-link, #logout-name {
+    margin: auto;
+}
+
+#navbar-ul-logout{
+    display: none;
+}
