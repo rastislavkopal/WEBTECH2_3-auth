@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
 html,body {
     margin: 0;
+    font-family: 'Numans', sans-serif;
 }
 
 #table_div{
@@ -26,3 +29,14 @@ html,body {
     background-color: tomato;
     color: white;
 }
+
+.reference{
+    font-size: 0.4rem;
+}
+
+#logo-text{
+    margin: auto;
+    font-size: large;
+    margin-top: 20px;
+}
+

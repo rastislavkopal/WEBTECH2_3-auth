@@ -1,6 +1,12 @@
 $(document).ready( function () {
-    updateListOfOlympicWinners();
+    setOauthLoginButton();
 } );
+
+function setOauthLoginButton(){
+    $.get( "https://wt78.fei.stuba.sk/zadanie3/api/oauth", function( data ) {
+        $( "#google-oauth" ).attr("href", data)
+    });
+}
 
 function displayMessage(response)
 {
@@ -12,6 +18,21 @@ function displayMessage(response)
     message.append(response);
     message.appendTo($('body')).fadeIn(300).delay(3000).fadeOut(1500);
 }
+
+function goLogin()
+{
+    $("#login-form").css("display", "none");
+    $("#register-form").css("display", "block");
+    setOauthLoginButton();
+}
+
+
+function goRegister()
+{
+    $("#login-form").css("display", "block");
+    $("#register-form").css("display", "none");
+}
+
 
 
 function createPerson()
