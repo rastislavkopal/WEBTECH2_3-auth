@@ -49,7 +49,14 @@ function loginUser(){
         type: 'POST',
         data: formData,
         dataType: 'text',
-        success: displayMessage,
+        success: function (response){
+        if (response[0] == "1"){
+            displayMessage(response.substring(1));
+            location.reload();
+        } else {
+            displayMessage(response);
+        }
+    }
     });
 }
 

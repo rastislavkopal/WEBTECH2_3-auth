@@ -58,7 +58,7 @@ function handleBasicLogin($data)
     if ((new UserModel())->verifyUserPass($data['email'], md5($data['password'])) ){ // true => hash matches
         session_start();
         $_SESSION['email']= $data['email'];
-        return "Uspesne prihlasenie uzivatela: ". $_SESSION['email'];
+        return "1Uspesne prihlasenie uzivatela: ". $_SESSION['email'];
     } else{
         return "Nepodarilo sa prihlasit";
     }

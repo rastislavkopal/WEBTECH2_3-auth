@@ -5,7 +5,7 @@ include_once 'Database.php';
 /*
  * Handles logging history of users => basic login, oauth, ldap
  */
-class UserAudit{
+class UserAuditModel{
 
     private $db;
 

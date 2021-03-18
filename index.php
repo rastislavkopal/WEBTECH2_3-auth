@@ -22,7 +22,6 @@ session_start();
 <?php include('./views/header.php') ?>
 
 
-
 <?php
 
 if (isset($_SESSION["email"])){

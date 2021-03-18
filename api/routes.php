@@ -51,5 +51,5 @@ SimpleRouter::get('/zadanie3/api/logout', function() {
     session_start();
     session_unset();
     session_destroy();
-    return "meno je: ".$_SESSION['meno']."<br />";
+    header('Location: https://wt78.fei.stuba.sk/zadanie3');
 });
