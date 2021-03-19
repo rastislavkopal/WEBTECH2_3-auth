@@ -7,11 +7,6 @@ include_once '/home/xkopalr1/public_html/zadanie3/api/controllers/LogController.
 
 
 
-SimpleRouter::get('/zadanie3/api/user', function() {
-    return 'Hello user';
-});
-
-
 SimpleRouter::post('/zadanie3/api/register', function() {
     $data = input()->all([
         'email',
