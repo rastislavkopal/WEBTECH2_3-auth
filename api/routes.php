@@ -36,10 +36,8 @@ SimpleRouter::get('/zadanie3/api/oauth', function(){
 } );
 
 
-SimpleRouter::get('/zadanie3/api/ldap', function(){
-
-    return "not yet ldap";
-//    return handleLdap();
+SimpleRouter::post('/zadanie3/api/ldap', function(){
+    return handleLdap(input('login_name'),input('password'));
 } );
 
 

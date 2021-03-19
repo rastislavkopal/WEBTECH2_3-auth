@@ -26,7 +26,9 @@ class UserModel{
             $prep->bindValue(':password', md5($arr['password']), PDO::PARAM_STR);
             $prep->bindValue(':secret', $arr['secret'], PDO::PARAM_STR);
 
-            return $prep->execute() ? "Uspesne pridany novy pouzivatel" : "Nieco sa nepodarilo";
+            $result = $prep->execute() ? "Uspesne pridany novy pouzivatel" : "Nieco sa nepodarilo";
+
+            return $result;
         } catch(PDOException $e) {
             return "Connection failed: " . $e->getMessage();
         }
@@ -40,11 +42,13 @@ class UserModel{
         $sth->execute();
         $result = $sth->fetch(PDO::FETCH_ASSOC);
 
-        if ($result == null)
-            return false;
-
-        return (strcmp($hashedPass, $result['password'] ) == 0);
+        if ($result != null && strcmp($hashedPass, $result['password'] ) == 0){ // if pass is correct, also audit login
+            $prep = $conn->prepare("INSERT INTO login_audit (user_email, login_type) VALUES (?,'BASIC')");
+            return $prep->execute([$email]);
+        }
+        return false;
     }
+
 
     public function getUserSecret($email)
     {

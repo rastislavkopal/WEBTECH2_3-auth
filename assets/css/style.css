@@ -63,3 +63,7 @@ html,body {
 #2fa-register{
 
 }
+
+#ldap-form{
+    display: none;
+}

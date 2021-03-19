@@ -21,10 +21,39 @@ function displayMessage(response)
     message.appendTo($('body')).fadeIn(300).delay(3000).fadeOut(1500);
 }
 
+function goLdap()
+{
+    $("#ldap-form").css("display", "block");
+    $("#register-form").css("display", "none");
+    $("#login-form").css("display", "none");
+}
+
+function loginLdap()
+{
+    let data = $('#ldap-form').serializeArray();
+    var formData = { "login_name": data[0]["value"], "password": data[1]["value"] };
+
+    $.ajax({
+        url: 'https://wt78.fei.stuba.sk/zadanie3/api/ldap',
+        type: 'POST',
+        data: formData,
+        dataType: 'text',
+        success: response => {
+            if (response[0] == "1") {
+                displayMessage(response.substring(1));
+                location.reload();
+            } else {
+                displayMessage(response);
+            }
+        }
+    });
+}
+
 function goRegister()
 {
     $("#login-form").css("display", "none");
     $("#register-form").css("display", "block");
+    $("#ldap-form").css("display", "none");
 
     $("#2fa-register").empty();
 
@@ -45,6 +74,7 @@ function goLogin()
 {
     $("#login-form").css("display", "block");
     $("#register-form").css("display", "none");
+    $("#ldap-form").css("display", "none");
 }
 
 function loginUser(){

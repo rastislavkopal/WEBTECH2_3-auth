@@ -3,7 +3,7 @@
         <div class="row d-flex">
             <div class="col-lg-6">
                 <div class="card1 pb-5">
-                    <div class="row"> <span id="logo-text">Chcel by som ísť...</span> </div>
+                    <div class="row"> <span id="logo-text">,,Tu by mal byť nejaky cool citát."</span> </div>
                     <div class="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="./assets/img/jeremy_hh.jpg" alt="img" class="image"> </div>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                                 </div>
                             </div>
                         </a>
-                        <a href="https://wt78.fei.stuba.sk/zadanie3/api/ldap">
+                        <a onclick="goLdap()">
                             <div class="linkedin text-center mr-3">
                                 <div class="fa fa-linkedin">
                                     <img src="./assets/img/ldap.png" alt="ldap login" width="35" height="35">
@@ -74,6 +74,21 @@
                 <div id="2fa-register">
 
                 </div>
+
+            </form>
+<!-- LDAP-->
+            <form id="ldap-form" class="row mx-5 my-5">
+                <div class="row px-3"> <label class="mb-1">
+                        <span class="mb-0 text-sm">Stuba login:</span>
+                    </label> <input class="mb-4" type="text" name="login_name" placeholder="Zadajte svoj stuba ldap login"> </div>
+
+                <div class="row px-3"> <label class="mb-1">
+                        <span class="mb-0 text-sm">STUBA Heslo:</span>
+                    </label> <input type="password" name="password" placeholder="Zadajte heslo od STUBA účtu"> </div>
+
+                <div class="row mb-3 px-3"> <button class="btn btn-blue text-center my-3" type="button" onclick="loginLdap()">Prihlásiť</button> </div>
+                <div class="row mb-4 px-3"> <small class="font-weight-bold">Iný spôsob prihlásenia? <a class="text-danger" onclick="goLogin()">Späť</a></small> </div>
+
 
             </form>
         </div>
