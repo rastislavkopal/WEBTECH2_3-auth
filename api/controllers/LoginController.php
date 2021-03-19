@@ -36,7 +36,7 @@ function handleOauth()
         $email =  $google_account_info->email;
         $name =  $google_account_info->name;
 
-        // now you can use this profile info to create account in your website and make user logged in.
+// now you can use this profile info to create account in your website and make user logged in.
         echo var_dump($token) . "   .... " . $email . " ..... " .$name;
     } else {
         header('Location: '.$client->createAuthUrl());
@@ -54,8 +54,19 @@ function handleBasicLogin($data)
     if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL) || empty($data['password'])){
         return "Chybny vstup";
     }
+    $userModel = new UserModel();
 
-    if ((new UserModel())->verifyUserPass($data['email'], md5($data['password'])) ){ // true => hash matches
+    if (empty($data['code']))
+        return "Overovaci kód nesmie byť prázdny.";
+
+    $ga = new PHPGangsta_GoogleAuthenticator();
+    $result = $ga->verifyCode($userModel->getUserSecret($data['email']), $data['code']);
+
+    if ($result != 1) {
+        return $result ." - Overovací kód nie je správny";
+    }
+
+    if ($userModel->verifyUserPass($data['email'], md5($data['password'])) ){ // true => hash matches
         session_start();
         $_SESSION['email']= $data['email'];
         return "1Uspesne prihlasenie uzivatela: ". $_SESSION['email'];

@@ -21,14 +21,25 @@ function displayMessage(response)
     message.appendTo($('body')).fadeIn(300).delay(3000).fadeOut(1500);
 }
 
-function goLogin()
+function goRegister()
 {
     $("#login-form").css("display", "none");
     $("#register-form").css("display", "block");
+
+    $.ajax({
+        url: "https://wt78.fei.stuba.sk/zadanie3/api/register/2fa",
+        type: 'GET',
+        dataType: 'json',
+        success: function(response){
+            $("#2fa-register").append("<p>Uložte si svoj overovací klúč: <b>" + response['secret'] + "</b></p>")
+            $("#2fa-register").append('<input name="secret" value="' + response['secret'] + '" type="hidden">')
+            $("#2fa-register").append("<img src='" + response['qrCodeUrl'] + "'>")
+        }
+    });
 }
 
 
-function goRegister()
+function goLogin()
 {
     $("#login-form").css("display", "block");
     $("#register-form").css("display", "none");
@@ -37,11 +48,10 @@ function goRegister()
 function loginUser(){
     let data = $('#login-form').serializeArray();
 
-    console.log(data);
-
     var formData = {
         "email": data[0]["value"],
-        "password": data[1]["value"]
+        "password": data[1]["value"],
+        "code": data[2]["value"],
     };
 
     $.ajax({
@@ -68,6 +78,7 @@ function registerUser()
         "email": data[0]["value"],
         "password": data[1]["value"],
         "password-again": data[2]["value"],
+        "secret": data[3]["value"],
     };
 
     $.ajax({
@@ -75,9 +86,10 @@ function registerUser()
         type: 'POST',
         data: formData,
         dataType: 'text',
-        success: function (){
-            location.reload();
-        },
+        success: displayMessage
+        // success: function (){
+        //     location.reload();
+        // },
     });
 }
 

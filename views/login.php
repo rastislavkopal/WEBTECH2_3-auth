@@ -41,12 +41,16 @@
                         <div class="row px-3"> <label class="mb-1">
                                 <span class="mb-0 text-sm">Heslo:</span>
                             </label> <input type="password" name="password" placeholder="Zadajte heslo" autocomplete="new-password"> </div>
+                        <br>
+                        <div class="row px-3"> <label class="mb-1">
+                                <span class="mb-0 text-sm">Overovací kód:</span>
+                            </label> <input class="mb-4" type="text" name="code" placeholder="Overte kód z google auth aplikácie">  </div>
                         <div class="row px-3 mb-4">
                             <div class="custom-control custom-checkbox custom-control-inline"> <input id="chk1" type="checkbox" name="chk" class="custom-control-input"> <label for="chk1" class="custom-control-label text-sm">Zapamätať</label> </div>
 
                         </div>
                         <div class="row mb-3 px-3"> <button class="btn btn-blue text-center" type="button" onclick="loginUser()">Prihlásiť sa</button> </div>
-                        <div class="row mb-4 px-3"> <small class="font-weight-bold">Ešte nie ste zaregistrovaný? <a class="text-danger" onclick="goLogin()">Registrácia</a></small> </div>
+                        <div class="row mb-4 px-3"> <small class="font-weight-bold">Ešte nie ste zaregistrovaný? <a class="text-danger" onclick="goRegister()">Registrácia</a></small> </div>
                     </div>
             </div>
         </form>
@@ -65,8 +69,11 @@
                     </label> <input type="password" name="password-again" placeholder="Heslo znova..." autocomplete="new-password"> </div>
 
                 <div class="row mb-3 px-3"> <button class="btn btn-blue text-center my-3" type="button" onclick="registerUser()">Registrovať</button> </div>
-                <div class="row mb-4 px-3"> <small class="font-weight-bold">Už máte účet? <a class="text-danger" onclick="goRegister()">Prihláste sa</a></small> </div>
+                <div class="row mb-4 px-3"> <small class="font-weight-bold">Už máte účet? <a class="text-danger" onclick="goLogin()">Prihláste sa</a></small> </div>
 
+                <div id="2fa-register">
+
+                </div>
 
             </form>
         </div>

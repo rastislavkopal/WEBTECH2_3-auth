@@ -21,9 +21,10 @@ class UserModel{
         try{
             $conn = $this->db->getConnection();
 
-            $prep = $conn->prepare("INSERT INTO users (email, password) VALUES (:email,:password)");
+            $prep = $conn->prepare("INSERT INTO users (email, password, secret) VALUES (:email,:password, :secret)");
             $prep->bindValue(':email', $arr['email'], PDO::PARAM_STR);
             $prep->bindValue(':password', md5($arr['password']), PDO::PARAM_STR);
+            $prep->bindValue(':secret', $arr['secret'], PDO::PARAM_STR);
 
             return $prep->execute() ? "Uspesne pridany novy pouzivatel" : "Nieco sa nepodarilo";
         } catch(PDOException $e) {
@@ -45,5 +46,12 @@ class UserModel{
         return (strcmp($hashedPass, $result['password'] ) == 0);
     }
 
+    public function getUserSecret($email)
+    {
+        $conn = $this->db->getConnection();
+        $sth = $conn->prepare('SELECT secret FROM users WHERE email=?');
+        $sth->execute([$email]);
+        return $sth->fetchColumn();
+    }
 
 }
