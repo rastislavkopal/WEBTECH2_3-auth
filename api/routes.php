@@ -3,11 +3,8 @@
 use Pecee\SimpleRouter\SimpleRouter;
 include_once  '/home/xkopalr1/public_html/zadanie3/api/controllers/LoginController.php';
 include_once '/home/xkopalr1/public_html/zadanie3/api/controllers/RegisterController.php';
+include_once '/home/xkopalr1/public_html/zadanie3/api/controllers/LogController.php';
 
-
-SimpleRouter::get('/zadanie3/api/', function() {
-    return 'Hello world';
-});
 
 
 SimpleRouter::get('/zadanie3/api/user', function() {
@@ -46,6 +43,15 @@ SimpleRouter::post('/zadanie3/api/login', function() {
     return handleBasicLogin($data);
 });
 
+
+SimpleRouter::get('/zadanie3/api/userhistory', function() {
+    return loginAudit(1);
+});
+
+
+SimpleRouter::get('/zadanie3/api/history', function() {
+    return loginAudit(0);
+});
 
 
 SimpleRouter::get('/zadanie3/api/logout', function() {

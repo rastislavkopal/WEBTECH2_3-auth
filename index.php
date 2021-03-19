@@ -25,21 +25,20 @@ session_start();
 <?php
 
 if (isset($_SESSION["email"])){
-    echo '<a class="btn btn-primary btn-small navbar-btn mx-3 py-2" href="http://wt78.fei.stuba.sk/zadanie3/api/logout">Odhlásiť </a><br>';
-    echo "Email: " . $_SESSION["email"] . "<br>";
-    if (!empty($_SESSION["name"]))
-        echo "Meno pouzivatela:" . $_SESSION["name"] . "<br>";
+    echo '<div id="logged-pop" class="text-center bg-dark text-light">';
 
-    echo "Typ prihlasenia: " . $_SESSION["log_type"] . "<br>";
+    echo "Email: <b>" . $_SESSION["email"] . "</b><br>";
+    if (!empty($_SESSION["name"]))
+        echo "Meno: <b>" . $_SESSION["name"] . "</b><br>";
+
+    echo "Typ loginu: <b>" . $_SESSION["log_type"] . "</b><br>";
+    echo '<a class="btn btn-link btn-small navbar-btn my-3" href="http://wt78.fei.stuba.sk/zadanie3/api/logout">Odhlásiť </a><br>';
+    echo "</div>";
+    include('./views/history_table.php');
 } else {
     include('./views/login.php');
 }
 ?>
-
-<!--GENERATE TABLE WITH DATATABLES-->
-<!--<div id="table_div">-->
-<!--    <table id="table_id" class="display"></table>-->
-<!--</div>-->
 
 <?php include('./views/footer.php') ?>
 

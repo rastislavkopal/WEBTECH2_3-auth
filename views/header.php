@@ -7,12 +7,4 @@
         </li>
     </ul>
 
-<!--    <ul id="navbar-ul-logout" class="nav navbar-nav navbar-right">-->
-<!--        <li>-->
-<!--            <div id="navbar_logout" class="btn-nav" onclick="logoutUser"><a class="btn btn-primary btn-small navbar-btn mx-3 py-2">Odhlásiť </a>-->
-<!--            </div>-->
-<!--        </li>-->
-<!--    </ul>-->
-
-
 </nav>

@@ -6,7 +6,7 @@ html,body {
 }
 
 #table_div{
-    width: 80%;
+    width: 100%;
     margin: auto;
     padding-top: 30px;
     padding-bottom: 100px;
@@ -66,4 +66,22 @@ html,body {
 
 #ldap-form{
     display: none;
+}
+
+#scan-qr{
+    font-size: small;
+    color: #3b5998;
+}
+
+#logged-pop{
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 10000;
+    background-color: whitesmoke;
+    min-width: 200px;
+    width: 20%;
+    min-height: 160px;
+    height: 15%;
+    padding: 1%;
 }

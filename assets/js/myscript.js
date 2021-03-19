@@ -1,14 +1,6 @@
 $(document).ready( function () {
-    // setOauthLoginButton();
-} );
 
-// function setOauthLoginButton(){
-//     $.get( "https://wt78.fei.stuba.sk/zadanie3/api/oauth", function( data ) {
-//         $( "#google-oauth" ).attr("href", data)
-//     }).always(function() {
-//         console.log("done");
-//     });
-// }
+} );
 
 function displayMessage(response)
 {
@@ -64,6 +56,7 @@ function goRegister()
         success: function(response){
             $("#2fa-register").append("<p>Uložte si svoj overovací klúč: <b>" + response['secret'] + "</b></p>")
             $("#2fa-register").append('<input name="secret" value="' + response['secret'] + '" type="hidden">')
+            $("#2fa-register").append('<span id="scan-qr">Oskenujte následujúci QR kód v mobilnej aplikácií Google Authenticator</span><br>')
             $("#2fa-register").append("<img src='" + response['qrCodeUrl'] + "'>")
         }
     });
@@ -133,4 +126,26 @@ function logoutUser()
         dataType: 'json',
         success: displayMessage
     });
+}
+
+function updateHistory(url = "https://wt78.fei.stuba.sk/zadanie3/api/history")
+{
+    $.get(url,
+        function (data) {
+            json = JSON.parse(data)
+            $("#table_id").DataTable({
+                data: json,
+                "searching": false,
+                "bInfo": false,
+                "scrollY":"80%",
+                "scrollCollapse": true,
+                "destroy": true,
+                "columns" : [
+                    { "data" : "id", title:'id prihlásenia' },
+                    { "data" : "user_email", title:'Email'  },
+                    { "data" : "login_time" },
+                    { "data" : "login_type", title:'Typ prihlásenia' },
+                ],
+            });
+        });
 }

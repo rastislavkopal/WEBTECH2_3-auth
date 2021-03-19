@@ -30,4 +30,38 @@ class UserAuditModel{
         }
     }
 
+
+    public function getAuditds()
+    {
+        $dataArr = array();
+        try{
+            $conn = $this->db->getConnection();
+            $q = $conn->query("SELECT id, user_email, login_time, login_type FROM login_audit");
+
+            while ($r = $q->fetch(PDO::FETCH_ASSOC))
+                $dataArr[] = $r;
+
+        } catch(PDOException $e) {
+            return "Connection failed: " . $e->getMessage();
+        }
+        return json_encode($dataArr);
+    }
+
+    public function getUserAudit($user_email, $login_type)
+    {
+        $dataArr = array();
+        try{
+            $conn = $this->db->getConnection();
+            $q = $conn->prepare("SELECT id, user_email, login_time, login_type FROM login_audit WHERE user_email=:user_email AND login_type=:login_type");
+            $q->execute(array(":user_email" => $user_email, ":login_type" => $login_type));
+
+            while ($r = $q->fetch(PDO::FETCH_ASSOC))
+                $dataArr[] = $r;
+
+        } catch(PDOException $e) {
+            return "Connection failed: " . $e->getMessage();
+        }
+        return json_encode($dataArr);
+    }
+
 }
