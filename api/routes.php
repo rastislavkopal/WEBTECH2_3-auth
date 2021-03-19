@@ -43,6 +43,10 @@ SimpleRouter::get('/zadanie3/api/userhistory', function() {
     return loginAudit(1);
 });
 
+SimpleRouter::get('/zadanie3/api/stats', function() {
+    return getStats();
+});
+
 
 SimpleRouter::get('/zadanie3/api/history', function() {
     return loginAudit(0);

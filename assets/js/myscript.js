@@ -1,6 +1,23 @@
 $(document).ready( function () {
-
+    loadStats();
 } );
+
+function loadStats()
+{
+
+    $.ajax({
+        url: "https://wt78.fei.stuba.sk/zadanie3/api/stats",
+        type: 'GET',
+        dataType: 'json',
+        success: response => {
+            let data = JSON.parse(JSON.stringify(response));
+            $("#log-basic").append("basic login: " + data[0] )
+            $("#log-oauth").append("oauth login: " + data[1])
+            $("#log-ldap").append("ldap login: " + data[2])
+        }
+
+    });
+}
 
 function displayMessage(response)
 {

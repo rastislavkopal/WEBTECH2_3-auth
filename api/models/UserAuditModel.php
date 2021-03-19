@@ -64,4 +64,21 @@ class UserAuditModel{
         return json_encode($dataArr);
     }
 
+    public function getStats()
+    {
+        try{
+            $dataArr = array();
+            $conn = $this->db->getConnection();
+            $q = $conn->prepare("SELECT login_type, COUNT(*) as count FROM `login_audit` GROUP BY login_type");
+            $q->execute();
+
+            while ($r = $q->fetch(PDO::FETCH_ASSOC))
+                $dataArr[] = $r['count'];
+
+            return json_encode($dataArr);
+        } catch(PDOException $e) {
+            return "Connection failed: " . $e->getMessage();
+        }
+    }
+
 }

@@ -85,3 +85,7 @@ html,body {
     height: 15%;
     padding: 1%;
 }
+
+#log-statistics{
+    font-size: small;
+}

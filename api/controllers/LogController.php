@@ -19,3 +19,8 @@ function loginAudit($condition) // 1 = per user log
         return (new UserAuditModel())->getAuditds();
     }
 }
+
+function getStats()
+{
+    return (new UserAuditModel())->getStats();
+}
