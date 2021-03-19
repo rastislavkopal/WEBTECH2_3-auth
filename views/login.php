@@ -1,4 +1,4 @@
-<div id="login-container" class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-3 mx-auto">
+<div id="login-container" class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-3 mx-auto mb-5">
     <div class="card card0 border-0">
         <div class="row d-flex">
             <div class="col-lg-6">
@@ -13,7 +13,7 @@
                 <div class="card2 card border-0 px-4 py-5">
                     <div class="row mb-4 px-3">
                         <h6 class="mb-0 mr-4 mt-2">Prihláste sa cez:</h6>
-                        <a id="google-oauth" href="https://wt78.fei.stuba.sk/zadanie3/api/logoauth">
+                        <a id="google-oauth" href="https://wt78.fei.stuba.sk/zadanie3/api/oauth">
                             <div class="facebook text-center mr-3">
                                 <div class="fa fa-facebook">
                                     <img src="./assets/img/google.png" alt="gmail login" width="17" height="17">

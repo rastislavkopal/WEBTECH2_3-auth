@@ -8,9 +8,8 @@ function handleOauth()
     require_once '/home/xkopalr1/public_html/zadanie3/api/vendor/autoload.php';
     $string = file_get_contents("/home/xkopalr1/public_html/credentials.json");
     $json_a = null;
-    if ($string === false || ($json_a = json_decode($string, true)) == null) {
+    if ($string === false || ($json_a = json_decode($string, true)) == null)
         return "unable to load credentials";
-    }
 
 // init configuration
     $clientID = $json_a['web']['client_id'];
@@ -26,7 +25,8 @@ function handleOauth()
     $client->addScope("profile");
 
 // authenticate code from Google OAuth Flow
-    if (isset($_GET['code'])) {
+    if (isset($_GET['code']))
+    {
         $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
         $client->setAccessToken($token['access_token']);
 
@@ -35,10 +35,15 @@ function handleOauth()
         $google_account_info = $google_oauth->userinfo->get();
         $email =  $google_account_info->email;
         $name =  $google_account_info->name;
-
 // now you can use this profile info to create account in your website and make user logged in.
-        echo var_dump($token) . "   .... " . $email . " ..... " .$name;
+
+        session_start();
+        $_SESSION['email']= $email;
+        $_SESSION['name'] = $name;
+        $_SESSION['log_type']= "oauth";
+        header('Location: https://wt78.fei.stuba.sk/zadanie3/');
     } else {
+        echo $client->createAuthUrl();
         header('Location: '.$client->createAuthUrl());
     }
 }
@@ -69,6 +74,8 @@ function handleBasicLogin($data)
     if ($userModel->verifyUserPass($data['email'], md5($data['password'])) ){ // true => hash matches
         session_start();
         $_SESSION['email']= $data['email'];
+        $_SESSION['name'] = "";
+        $_SESSION['log_type']= "basic";
         return "1Uspesne prihlasenie uzivatela: ". $_SESSION['email'];
     } else{
         return "Nepodarilo sa prihlasit";

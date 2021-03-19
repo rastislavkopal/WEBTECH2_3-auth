@@ -26,6 +26,8 @@ function goRegister()
     $("#login-form").css("display", "none");
     $("#register-form").css("display", "block");
 
+    $("#2fa-register").empty();
+
     $.ajax({
         url: "https://wt78.fei.stuba.sk/zadanie3/api/register/2fa",
         type: 'GET',
@@ -86,10 +88,9 @@ function registerUser()
         type: 'POST',
         data: formData,
         dataType: 'text',
-        success: displayMessage
-        // success: function (){
-        //     location.reload();
-        // },
+        success: function (){
+            location.reload();
+        },
     });
 }
 

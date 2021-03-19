@@ -25,8 +25,12 @@ session_start();
 <?php
 
 if (isset($_SESSION["email"])){
-    echo '<a class="btn btn-primary btn-small navbar-btn mx-3 py-2" href="http://wt78.fei.stuba.sk/zadanie3/api/logout">Odhlásiť </a>';
-    return "hello";
+    echo '<a class="btn btn-primary btn-small navbar-btn mx-3 py-2" href="http://wt78.fei.stuba.sk/zadanie3/api/logout">Odhlásiť </a><br>';
+    echo "Email: " . $_SESSION["email"] . "<br>";
+    if (!empty($_SESSION["name"]))
+        echo "Meno pouzivatela:" . $_SESSION["name"] . "<br>";
+
+    echo "Typ prihlasenia: " . $_SESSION["log_type"] . "<br>";
 } else {
     include('./views/login.php');
 }
