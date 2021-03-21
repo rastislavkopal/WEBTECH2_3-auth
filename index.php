@@ -15,6 +15,7 @@
 
 <?php include('./views/header.php') ?>
 
+<section id="section-main">
 
 <?php
 
@@ -33,6 +34,7 @@ if (isset($_SESSION["email"])){
     include('./views/login.php');
 }
 ?>
+</section>
 
 <?php include('./views/footer.php') ?>
 

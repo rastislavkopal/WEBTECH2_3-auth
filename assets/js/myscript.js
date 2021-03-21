@@ -157,10 +157,11 @@ function updateHistory(url = "https://wt78.fei.stuba.sk/zadanie3/api/history")
                 "scrollY":"80%",
                 "scrollCollapse": true,
                 "destroy": true,
+                "order": [[ 2, "desc" ]],
                 "columns" : [
                     { "data" : "id", title:'id prihlásenia' },
                     { "data" : "user_email", title:'Email'  },
-                    { "data" : "login_time" },
+                    { "data" : "login_time", title:'Čas prihlásenia' },
                     { "data" : "login_type", title:'Typ prihlásenia' },
                 ],
             });

@@ -1,13 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
 html,body {
+    height: 100%;
     margin: 0;
     font-family: 'Numans', sans-serif;
 }
 
+#section-main{
+    min-height: 72%;
+}
+
 #table_div{
-    width: 100%;
-    margin: auto;
+    width: 70%;
+    margin-left: 50px;
     padding-top: 30px;
     padding-bottom: 100px;
 }
@@ -15,7 +20,6 @@ html,body {
 #indexFooter{
     width: 100%;
     min-height: 50px;
-    position: fixed;
     bottom: 0;
 }
 
