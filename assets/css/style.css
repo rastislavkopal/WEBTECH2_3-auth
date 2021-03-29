@@ -7,7 +7,7 @@ html,body {
 }
 
 #section-main{
-    min-height: 72%;
+    min-height: 70vh;
 }
 
 #table_div{
@@ -18,9 +18,12 @@ html,body {
 }
 
 #indexFooter{
-    width: 100%;
-    min-height: 50px;
+    position: fixed;
+    width: 20%;
+    height: 100px;
     bottom: 0;
+    right: 0;
+    align-content: center;
 }
 
 .error-message {
@@ -64,10 +67,6 @@ html,body {
     display: none;
 }
 
-#2fa-register{
-
-}
-
 #ldap-form{
     display: none;
 }
@@ -90,6 +89,16 @@ html,body {
     padding: 1%;
 }
 
+#stats-h{
+    font-size: small;
+}
+
 #log-statistics{
     font-size: small;
+    margin: auto;
+}
+
+#login-container{
+    margin-bottom: 100px;
+    min-height: 75vh;
 }

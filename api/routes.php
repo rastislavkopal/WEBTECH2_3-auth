@@ -10,6 +10,8 @@ include_once '/home/xkopalr1/public_html/zadanie3/api/controllers/LogController.
 SimpleRouter::post('/zadanie3/api/register', function() {
     $data = input()->all([
         'email',
+        'first_name',
+        'surname',
         'password',
         'password-again',
         'secret'

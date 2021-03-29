@@ -17,21 +17,31 @@ class UserModel{
         $this->db = new Database();
     }
 
-    public function createBasicUser($arr){
+    public function createBasicUser($arr, $pass){
         try{
             $conn = $this->db->getConnection();
 
-            $prep = $conn->prepare("INSERT INTO users (email, password, secret) VALUES (:email,:password, :secret)");
-            $prep->bindValue(':email', $arr['email'], PDO::PARAM_STR);
-            $prep->bindValue(':password', md5($arr['password']), PDO::PARAM_STR);
-            $prep->bindValue(':secret', $arr['secret'], PDO::PARAM_STR);
+            $prep = $conn->prepare("INSERT INTO users (email, password, secret, first_name, surname) VALUES (:email,:password, :secret, :first_name, :surname)");
+            $prep->bindParam(':email', $arr['email'], PDO::PARAM_STR);
+            $prep->bindParam(':password', $pass, PDO::PARAM_STR);
+            $prep->bindParam(':secret', $arr['secret'], PDO::PARAM_STR);
+            $prep->bindParam(':first_name', $arr['first_name'], PDO::PARAM_STR);
+            $prep->bindParam(':surname', $arr['surname'], PDO::PARAM_STR);
 
-            $result = $prep->execute() ? "Uspesne pridany novy pouzivatel" : "Nieco sa nepodarilo";
+            return ($prep->execute()) ? "Úspešne pridaný nový používatel" : "Niečo sa nepodarilo";
 
-            return $result;
         } catch(PDOException $e) {
             return "Connection failed: " . $e->getMessage();
         }
+    }
+
+    public function getUserInfo($email)
+    {
+        $conn = $this->db->getConnection();
+        $sth = $conn->prepare('SELECT email, first_name, surname FROM users WHERE email=:email');
+        $sth->bindParam(':email', $email, PDO::PARAM_STR);
+        $sth->execute();
+        return $sth->fetch(PDO::FETCH_ASSOC);
     }
 
     public function verifyUserPass($email, $hashedPass)

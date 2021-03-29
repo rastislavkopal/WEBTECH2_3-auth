@@ -4,18 +4,16 @@ $(document).ready( function () {
 
 function loadStats()
 {
-
     $.ajax({
         url: "https://wt78.fei.stuba.sk/zadanie3/api/stats",
         type: 'GET',
         dataType: 'json',
         success: response => {
             let data = JSON.parse(JSON.stringify(response));
-            $("#log-basic").append("basic login: " + data[0] )
-            $("#log-oauth").append("oauth login: " + data[1])
+            $("#log-basic").append("oauth login: " + data[1] )
+            $("#log-oauth").append("basic login: " + data[0])
             $("#log-ldap").append("ldap login: " + data[2])
         }
-
     });
 }
 
@@ -118,18 +116,22 @@ function registerUser()
 
     var formData = {
         "email": data[0]["value"],
-        "password": data[1]["value"],
-        "password-again": data[2]["value"],
-        "secret": data[3]["value"],
+        "first_name": data[1]["value"],
+        "surname": data[2]["value"],
+        "password": data[3]["value"],
+        "password-again": data[4]["value"],
+        "secret": data[5]["value"],
     };
+    console.log(formData)
 
     $.ajax({
         url: 'https://wt78.fei.stuba.sk/zadanie3/api/register',
         type: 'POST',
         data: formData,
         dataType: 'text',
-        success: function (){
-            location.reload();
+        success: res => {
+            goLogin();
+            displayMessage(res)
         },
     });
 }
@@ -138,22 +140,23 @@ function registerUser()
 function logoutUser()
 {
     $.ajax({
-        url: "http://wt78.fei.stuba.sk/zadanie3/api/logout",
+        url: "https://wt78.fei.stuba.sk/zadanie3/api/logout",
         type: 'GET',
         dataType: 'json',
         success: displayMessage
     });
 }
 
-function updateHistory(url = "https://wt78.fei.stuba.sk/zadanie3/api/history")
+function updateHistory()
 {
-    $.get(url,
+    $.get("https://wt78.fei.stuba.sk/zadanie3/api/userhistory",
         function (data) {
             json = JSON.parse(data)
             $("#table_id").DataTable({
                 data: json,
                 "searching": false,
                 "bInfo": false,
+                "paging": false,
                 "scrollY":"80%",
                 "scrollCollapse": true,
                 "destroy": true,

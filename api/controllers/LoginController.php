@@ -54,7 +54,7 @@ function handleOauth()
 function handleLdap($login, $ldappass) // params: ldap credentials
 {
     $ldapconn = ldap_connect("ldap.stuba.sk") // connect to ldap server
-            or die("Could not connect to LDAP server.");
+            or die("Nepodarilo sa prihlasit.");
 
     $dn  = 'ou=People, DC=stuba, DC=sk';
     $ldaprdn  = "uid=$login, $dn";
@@ -65,7 +65,7 @@ function handleLdap($login, $ldappass) // params: ldap credentials
         $ldapbind = ldap_bind($ldapconn, $ldaprdn, $ldappass); // binding to ldap server
         // verify binding
         if ($ldapbind) {
-            $results=ldap_search($ldapconn,$dn,"uid=*" . $login . "*",array("givenname","surname","mail","cn","uid"),0,1);
+            $results=ldap_search($ldapconn,$dn,"uid=" . $login, array("givenname","surname","mail","cn","uid"),0,1);
             $info=ldap_get_entries($ldapconn,$results);
 
             session_start();
@@ -106,8 +106,9 @@ function handleBasicLogin($data)
     if ($userModel->verifyUserPass($data['email'], md5($data['password'])) ){ // true => hash matches
 
         session_start();
+        $userInfo = $userModel->getUserInfo($data['email']);
         $_SESSION['email']= $data['email'];
-        $_SESSION['name'] = "";
+        $_SESSION['name'] = $userInfo['first_name'] . ' ' . $userInfo['surname'];
         $_SESSION['log_type']= "basic";
         return "1Uspesne prihlasenie uzivatela: ". $_SESSION['email'];
     } else{
